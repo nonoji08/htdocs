@@ -21,6 +21,9 @@
 		*/
 
 		$pdo=new PDO("mysqlhost='localhost';dbname='php';charset='utf8','root',''");
+		print "접속성공";
+		$pdo=null;
+		
 	?>
     </body>
 </html>
