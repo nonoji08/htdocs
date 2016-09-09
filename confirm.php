@@ -1,6 +1,5 @@
-<?php
-    session_start();
-    
+﻿<?php
+    include("testsession.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +9,12 @@
     </head>
     <body>
         <?php
-            
+            print "이름 : ";
+	    print $_SESSION['name']."<br>";
+	    print "그룹 : ";
+	    print $_SESSION['group']."<br>";
+	    print "레벨 : ";
+	    print $_SESSION['level'];
         ?>
     </body>
 </html>
