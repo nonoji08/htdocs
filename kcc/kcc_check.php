@@ -35,5 +35,27 @@ $fax=$_POST['fax_G'].$_POST['fax_F'].$_POST['fax_S'];
 $marry=$_POST['marry'];
 
 
-$sql="insert into kcc_member(korname,enname,birth,id,pw,phone,cellphone,sms,email,home_address,dm,company_name,job,position,company_address,company_phone,fax,marry) values('$korname','$enname','$birth','$id','$pw','$phone','$cellphone','$sms','$email','$home_address','$dm','$company_name','$job','$position','$company_address','$company_phone','$fax','$marry')";
+$sql='insert into kcc_member(korname,enname,birth,id,pw,phone,cellphone,sms,email,home_address,dm,company_name,job,position,company_address,company_phone,fax,marry) values(:korname,:enname,:birth,:id,:pw,:phone,:cellphone,:sms,:email,:home_address,:dm,:company_name,:job,:position,:company_address,:company_phone,:fax,:marry)';
+
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':korname', $korname);
+$stmt->bindValue(':enname', $enname);
+$stmt->bindValue(':birth', $birth);
+$stmt->bindValue(':id', $id);
+$stmt->bindValue(':pw', $pw);
+$stmt->bindValue(':phone', $phone);
+$stmt->bindValue(':cellphone', $cellphone);
+$stmt->bindValue(':sms', $sms);
+$stmt->bindValue(':email', $email);
+$stmt->bindValue(':home_address', $home_address);
+$stmt->bindValue(':dm', $dm);
+$stmt->bindValue(':company_name', $company_name);
+$stmt->bindValue(':job', $job);
+$stmt->bindValue(':position', $position);
+$stmt->bindValue(':company_address', $company_address);
+$stmt->bindValue(':company_phone', $company_phone);
+$stmt->bindValue(':fax', $fax);
+$stmt->bindValue(':marry', $marry);
+$stmt->execute();
+
 ?>
