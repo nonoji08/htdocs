@@ -5,15 +5,96 @@
     <link rel="stylesheet" href="css/kcc.css">
     <meta charset="UTF-8">
    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-        }
-    }).open();
-</script>
-    <title>KCC</title>
+
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+                <script>
+                    function sample6_execDaumPostcode() {
+                        new daum.Postcode({
+                            oncomplete: function(data) {
+                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                var fullAddr = ''; // 최종 주소 변수
+                                var extraAddr = ''; // 조합형 주소 변수
+
+                                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                    fullAddr = data.roadAddress;
+
+                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                    fullAddr = data.jibunAddress;
+                                }
+
+                                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                                if(data.userSelectedType === 'R'){
+                                    //법정동명이 있을 경우 추가한다.
+                                    if(data.bname !== ''){
+                                        extraAddr += data.bname;
+                                    }
+                                    // 건물명이 있을 경우 추가한다.
+                                    if(data.buildingName !== ''){
+                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                    }
+                                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                                }
+
+                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                document.getElementById('epost').value = data.zonecode; //5자리 새우편번호 사용
+                                document.getElementById('address').value = fullAddr;
+
+                                // 커서를 상세주소 필드로 이동한다.
+                                document.getElementById('address_etc').focus();
+                            }
+                        }).open();
+                    }
+                </script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+                <script>
+                    function hslee22() {
+                        new daum.Postcode({
+                            oncomplete: function(data) {
+                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                var fullAddr = ''; // 최종 주소 변수
+                                var extraAddr = ''; // 조합형 주소 변수
+
+                                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                    fullAddr = data.roadAddress;
+
+                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                    fullAddr = data.jibunAddress;
+                                }
+
+                                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                                if(data.userSelectedType === 'R'){
+                                    //법정동명이 있을 경우 추가한다.
+                                    if(data.bname !== ''){
+                                        extraAddr += data.bname;
+                                    }
+                                    // 건물명이 있을 경우 추가한다.
+                                    if(data.buildingName !== ''){
+                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                    }
+                                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                                }
+
+                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                document.getElementById('company_epost').value = data.zonecode; //5자리 새우편번호 사용
+                                document.getElementById('company_address').value = fullAddr;
+
+                                // 커서를 상세주소 필드로 이동한다.
+                                document.getElementById('company_address_etc').focus();
+                            }
+                        }).open();
+                    }
+                </script>
+    <title>20513 이민환</title>
 </head>
 <body>
     <div id="wrap">
@@ -137,14 +218,14 @@
                     </tr>
                     <tr>
                         <td id="call">전화번호</td>
-                        <td><select name="phone">
+                        <td><select name="phone_F">
                             <option value="1">02</option>
                             <option value="2">031</option>
                             <option value="3">032</option>
                             <option value="4">033</option>
                         </select>&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="phone">&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="phone"></td>
+                        <td><input type="text" style="width:60px;" name="phone_S">&nbsp;-</td>
+                        <td><input type="text" style="width:60px;" name="phone_T"></td>
                         <td><span class="ex">&nbsp; 예약시 휴대폰으로 문자가 발송됩니다.</span></td>
                     </tr>
                     <tr>
@@ -171,64 +252,18 @@
                     </tr>            
                     <tr>
                         <td id="post">자택 우편번호&nbsp;<span class="star">*</span></td>
-                        
-                    </tr>
+                 <!--
                     <tr>
                         <td>자택주소&nbsp;<span class="star">*</span></td>
                         <td><input type="text" style="width:300px;" name="address"></td>
                         <td><br/><input name="address_etc" type="text" style="width:300px; margin-left:131px;"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" style="width:70px;margin-left:-40px;" id="epost" placeholder="우편번호">
-                        <input type="button" name="epost" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td><br>
+                    </tr>-->
+                        <td><input type="text" style="width:70px;margin-left:-40px;" id="epost" name="epost" placeholder="우편번호" readonly required>
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
                  </tr><tr>
-                 <td><input type="text" id="address" style="width:300px;" placeholder="주소">
-                 <input type="text" id="address2_etc" style="width:300px; margin-left:131px;" placeholder="상세주소"></td>
+                 <td><input type="text" id="address" name="address" style="width:300px;" placeholder="주소" readonly required>
+                 <input type="text" id="address_etc" style="width:300px; margin-left:10px;" name="address_etc" placeholder="상세주소"></td>
                  </tr>
-                <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-                <script>
-                    function sample6_execDaumPostcode() {
-                        new daum.Postcode({
-                            oncomplete: function(data) {
-                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                                var fullAddr = ''; // 최종 주소 변수
-                                var extraAddr = ''; // 조합형 주소 변수
-
-                                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                                    fullAddr = data.roadAddress;
-
-                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                                    fullAddr = data.jibunAddress;
-                                }
-
-                                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                                if(data.userSelectedType === 'R'){
-                                    //법정동명이 있을 경우 추가한다.
-                                    if(data.bname !== ''){
-                                        extraAddr += data.bname;
-                                    }
-                                    // 건물명이 있을 경우 추가한다.
-                                    if(data.buildingName !== ''){
-                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                                    }
-                                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                                }
-
-                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                                document.getElementById('sample6_address').value = fullAddr;
-
-                                // 커서를 상세주소 필드로 이동한다.
-                                document.getElementById('sample6_address2').focus();
-                            }
-                        }).open();
-                    }
-                </script>
                     <tr>
                         <td>DM발송처<span class="star">*</span></td>
                         <td><input type="radio" name="DM" value="home"></td>
@@ -254,13 +289,13 @@
                         </tr>
                         <tr>
                             <td id="workpost">직장 우편번호<span class="star">*</span></td>
-                            <td><input type="text" name="company_epost" style="width:70px;">&nbsp;-</td>
-                            <td><input type="button" value="우편번호 찾기"></td>
+                            <td><input type="text" id="company_epost" name="company_epost" style="width:70px;" readonly>&nbsp;-</td>
+                            <td><input type="button" onclick="hslee22()" value="우편번호 찾기"></td>
                         </tr>
                         <tr>
                             <td>직장주소<span class="star">*</span></td>
-                            <td><input type="text" name="company_address" style="width:300px; margin-left:4px;"></td>
-                            <td><br/><input type="text" name="company_address_etc" style="width:300px; margin-left:129px;"></td>
+                            <td><input type="text" id="company_address" name="company_address" style="width:300px; margin-left:4px;" placeholder="주소" readonly></td>
+                            <td><br/><input type="text" id="company_address_etc" name="company_address_etc" style="width:300px; margin-left:129px;" placeholder="상세주소"></td>
                         </tr>
                         <tr>
                             <td id="number">직장전화번호<span class="star">*</span></td>
@@ -272,8 +307,8 @@
                             <option value="018">018</option>
                             <option value="019">019</option>
                         </select>&nbsp;-</td>
-                        <td><input type="text" name="company_phone_F" style="width:60px;">&nbsp;-</td>
-                        <td><input type="text" name="company_phone_S" style="width:60px;"></td>
+                        <td><input type="text" name="company_phone_F" style="width:60px;" maxlength="4" required>&nbsp;-</td>
+                        <td><input type="text" name="company_phone_S" style="width:60px;" maxlength="4" required></td>
                         </tr>
                         <td id="fax">팩스번호</td>
                             <td><select name="fax_G">
@@ -288,9 +323,9 @@
                         <td><input type="text" name="fax_S" style="width:60px;"></td>
                         <tr>
                             <td id="marry">결혼여부</td>
-                            <td><input type="radio" name="marry" value="n"></td>
+                            <td><input type="radio" name="marry" value="미혼"></td>
                             <td><span class="ex">미혼</span></td>
-                            <td><input type="radio" name="marry" value="y"></td>
+                            <td><input type="radio" name="marry" value="기혼"></td>
                             <td><span class="ex">기혼</span></td>
                         </tr>
                         <tr>
