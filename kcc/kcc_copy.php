@@ -5,7 +5,89 @@
     <link rel="stylesheet" href="css/kcc.css">
     <meta charset="UTF-8">
    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+   <script type="text/javascript" src="js/register.js"></script>
+   <script type="text/javascript">
+   jQuery( function($) {
+var re_id = /^[a-z0-9_-]{3,16}$/; // 아이디 검사식
+	var re_pw = /^[a-z0-9_-]{6,18}$/; // 비밀번호 검사식
 
+var
+form = $('.form'),
+id = $('#id'), 
+pw = $('#pw');
+
+form.submit( function() {
+		if (re_id.test(id.val()) != true) { // 아이디 검사
+			alert('[ID 입력 오류] 유효한 ID를 입력해 주세요.');
+			uid.focus();
+			return false;
+		} else if(re_pw.test(pw.val()) != true) { // 비밀번호 검사
+			alert('[PW 입력 오류] 유효한 PW를 입력해 주세요.');
+			u0pw.focus();
+			return false;
+		}
+	});
+
+$('#id, #pw').after('<strong></strong>');
+	
+
+	id.keyup( function() {
+		var s = $(this).next('strong'); // strong 요소를 변수에 할당
+		if (id.val().length == 0) { // 입력 값이 없을 때
+			s.text(''); // strong 요소에 포함된 문자 지움
+		} else if (id.val().length < 3) { // 입력 값이 3보다 작을 때
+			s.text('너무 짧아요.'); // strong 요소에 문자 출력**********
+                        
+                        
+                        
+                        
+                        8
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        *
+                        +
+		} else if (id.val().length > 16) { // 입력 값이 16보다 클 때
+			s.text('너무 길어요.'); // strong 요소에 문자 출력
+		} else { // 입력 값이 3 이상 16 이하일 때
+			s.text('적당해요.'); // strong 요소에 문자 출력
+		}
+	});
+	
+
+	pw.keyup( function() {
+		var s = $(this).next('strong'); // strong 요소를 변수에 할당
+		if (pw.val().length == 0) { // 입력 값이 없을 때
+			s.text(''); // strong 요소에 포함된 문자 지움
+		} else if (pw.val().length < 6) { // 입력 값이 6보다 작을 때
+			s.text('너무 짧아요.'); // strong 요소에 문자 출력
+		} else if (pw.val().length > 18) { // 입력 값이 18보다 클 때
+			s.text('너무 길어요.'); // strong 요소에 문자 출력
+		} else { // 입력 값이 6 이상 18 이하일 때
+			s.text('적당해요.'); // strong 요소에 문자 출력
+		}
+	});
+</script>
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
                 <script>
                     function sample6_execDaumPostcode() {
@@ -153,7 +235,7 @@
                 <li>가입완료</li>
             </ul>
             </div>
-            <form method="post" action="kcc_check.php">
+            <form method="post" action="kcc_check.php" class="form">
             <div id="in">
                 <h5><span id="s">상세정보 입력</span> &nbsp;<span class="star">*</span>표시는 필수입력 항목입니다.</h5>
             </div>
@@ -202,44 +284,44 @@
                     </tr>
                     <tr>
                         <td>아이디&nbsp;<span class="star">*</span></td>
-                        <td><input type="text" name="id" style="margin-left:16px;"></td>
+                        <td><input type="text" name="id" id="id" style="margin-left:16px;"></td>
                         <td><input type="button" value="중복확인"></td>
                         <td><span class="ex">사이트내에서 표시되는 본인정보이며 저장 후 수정하실 수 없습니다.</span></td>
                     </tr>
                     <tr>
                         <td>비밀번호&nbsp;<span class="star">*</span></td>
-                        <td><input type="text" name="pw"></td>
+                        <td><input type="password" name="pw" id="pw"></td>
                         <td><span class="ex">&nbsp; 영문 소문자,숫자 포함 4자리 이상 10자리 이하입니다.</span></td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인&nbsp;<span class="star">*</span></td>
-                        <td><input type="text" style="margin-left:-37px;"></td>
+                        <td><input type="password" style="margin-left:-37px;"></td>
                         <td><span class="ex">&nbsp; 비밀번호를 한번 더 입력하세요</span></td>
                     </tr>
                     <tr>
                         <td id="call">전화번호</td>
-                        <td><select name="phone_F">
-                            <option value="1">02</option>
-                            <option value="2">031</option>
-                            <option value="3">032</option>
-                            <option value="4">033</option>
+                        <td><select name="phone_G">
+                            <option value="02">02</option>
+                            <option value="031">031</option>
+                            <option value="032">032</option>
+                            <option value="033">033</option>
                         </select>&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="phone_S">&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="phone_T"></td>
+                        <td><input type="text" style="width:60px;" name="phone_F" maxlength="4">&nbsp;-</td>
+                        <td><input type="text" style="width:60px;" name="phone_S" maxlength="4"></td>
                         <td><span class="ex">&nbsp; 예약시 휴대폰으로 문자가 발송됩니다.</span></td>
                     </tr>
                     <tr>
                         <td id="cellphone">휴대폰번호&nbsp;<span class="star">*</span></td>
-                         <td><select name="cellphone">
-                            <option value="1">010</option>
-                            <option value="2">011</option>
-                            <option value="3">016</option>
-                            <option value="4">017</option>
-                            <option value="5">018</option>
-                            <option value="6">019</option>
+                         <td><select name="cellphone_G">
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
                         </select>&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="cellphone">&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="cellphone"></td>
+                         <td><input type="text" style="width:60px;" name="cellphone_F" maxlength="4">&nbsp;-</td>
+                        <td><input type="text" style="width:60px;" name="cellphone_S" maxlength="4"></td>
                     </tr>
                     <tr>
                         <td id="sms">SMS 수신여부&nbsp;<span class="star">*</span></td>
@@ -266,9 +348,9 @@
                  </tr>
                     <tr>
                         <td>DM발송처<span class="star">*</span></td>
-                        <td><input type="radio" name="DM" value="home"></td>
+                        <td><input type="radio" name="dm" value="home"></td>
                         <td><span class="ex">자택</span></td>
-                        <td><input type="radio" name="DM" value="company"></td>
+                        <td><input type="radio" name="dm" value="company"></td>
                         <td><span class="ex">직장</span></td>
                     </tr>
                 </table>
@@ -361,7 +443,7 @@
                 <div id="line3"></div>
                 <div id="btn">
                    <a href="#" id="back">취소</a>
-                   <button id="next">다음</button>
+                   <input type="submit" id="next" value="다음">
                 </div>
             </div>
             </form>
