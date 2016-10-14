@@ -1,14 +1,6 @@
-<?php
+﻿<?php
 
-try{
-    $pdo=new PDO('mysql:host=localhost;dbname=kcc;charset=utf8','root','');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
-    print "접속";
-}
-    catch(PDOException $e){
-        echo '오류'.$e->getMessage();
-}
+include 'include.php';
 
 $korname=$_POST['korname'];
 $enname=$_POST['enname'];
@@ -81,4 +73,5 @@ $stmt->bindValue(':fax', $fax);
 $stmt->bindValue(':marry', $marry);
 $stmt->execute();
 
+echo "<input type='hidden' value=<?=$row['id']?> >";
 ?>
