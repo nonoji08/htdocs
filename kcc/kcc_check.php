@@ -73,5 +73,5 @@ $stmt->bindValue(':fax', $fax);
 $stmt->bindValue(':marry', $marry);
 $stmt->execute();
 
-echo "<input type='hidden' value=<?=$row['id']?> >";
+echo "<meta http-equiv='refresh' content='0; url=kcc_member.php'>";
 ?>

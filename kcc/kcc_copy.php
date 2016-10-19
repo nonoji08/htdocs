@@ -163,11 +163,11 @@
              <table class="table">
                     <tr>
                         <td>한글이름&nbsp;<span class="star">*</span></td>
-                        <td><input type="text" name="korname"></td>
+                        <td><input type="text" name="korname" required></td>
                     </tr>
                     <tr>
                         <td>영문이름</td>
-                        <td><input type="text" name="enname" style="margin-left:12px;"></td>
+                        <td><input type="text" name="enname" style="margin-left:12px;" required></td>
                     </tr>
                     <tr>
                         <td>생년월일&nbsp;<span class="star">*</span></td>
@@ -203,18 +203,18 @@
                     </tr>
                     <tr>
                         <td>아이디&nbsp;<span class="star">*</span></td>
-                        <td><input type="text" name="id" id="id" style="margin-left:16px;"></td>
+                        <td><input type="text" name="id" id="id" style="margin-left:16px;" required></td>
                         <td><input type="button" value="중복확인"></td>
                         <td><span class="ex">사이트내에서 표시되는 본인정보이며 저장 후 수정하실 수 없습니다.</span></td>
                     </tr>
                     <tr>
                         <td>비밀번호&nbsp;<span class="star">*</span></td>
-                        <td><input type="password" name="pw" id="pw"></td>
+                        <td><input type="password" name="pw" id="pw" required></td>
                         <td><span class="ex">&nbsp; 영문 소문자,숫자 포함 4자리 이상 10자리 이하입니다.</span></td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인&nbsp;<span class="star">*</span></td>
-                        <td><input type="password" style="margin-left:-37px;"></td>
+                        <td><input type="password" style="margin-left:-37px;" required></td>
                         <td><span class="ex">&nbsp; 비밀번호를 한번 더 입력하세요</span></td>
                     </tr>
                     <tr>
@@ -239,8 +239,8 @@
                             <option value="018">018</option>
                             <option value="019">019</option>
                         </select>&nbsp;-</td>
-                         <td><input type="text" style="width:60px;" name="cellphone_F" maxlength="4">&nbsp;-</td>
-                        <td><input type="text" style="width:60px;" name="cellphone_S" maxlength="4"></td>
+                         <td><input type="text" style="width:60px;" name="cellphone_F" maxlength="4" required>&nbsp;-</td>
+                        <td><input type="text" style="width:60px;" name="cellphone_S" maxlength="4" required></td>
                     </tr>
                     <tr>
                         <td id="sms">SMS 수신여부&nbsp;<span class="star">*</span></td>
@@ -278,7 +278,7 @@
                     <table class="table2">
                         <tr>
                             <td>직장명&nbsp;<span class="star">*</span></td>
-                            <td><input type="text" name="company_name" style="margin-left:14px;"></td>
+                            <td><input type="text" name="company_name" style="margin-left:14px;" required></td>
                         </tr>
                         <tr>
                             <td>직종</td>
@@ -286,16 +286,16 @@
                         </tr>
                         <tr>
                             <td>직위&nbsp;<span class="star">*</span></td>
-                            <td><input type="text" name="position" style="margin-left:30px;"></td>
+                            <td><input type="text" name="position" style="margin-left:30px;" required></td>
                         </tr>
                         <tr>
                             <td id="workpost">직장 우편번호<span class="star">*</span></td>
-                            <td><input type="text" id="company_epost" name="company_epost" style="width:70px;" readonly>&nbsp;-</td>
+                            <td><input type="text" id="company_epost" name="company_epost" style="width:70px;" readonly required>&nbsp;-</td>
                             <td><input type="button" onclick="hslee22()" value="우편번호 찾기"></td>
                         </tr>
                         <tr>
                             <td>직장주소<span class="star">*</span></td>
-                            <td><input type="text" id="company_address" name="company_address" style="width:300px; margin-left:4px;" placeholder="주소" readonly></td>
+                            <td><input type="text" id="company_address" name="company_address" style="width:300px; margin-left:4px;" placeholder="주소" readonly required></td>
                             <td><br/><input type="text" id="company_address_etc" name="company_address_etc" style="width:300px; margin-left:129px;" placeholder="상세주소"></td>
                         </tr>
                         <tr>
@@ -320,8 +320,8 @@
                             <option value="018">018</option>
                             <option value="019">019</option>
                         </select>&nbsp;-</td>
-                        <td><input type="text" name="fax_F" style="width:60px;">&nbsp;-</td>
-                        <td><input type="text" name="fax_S" style="width:60px;"></td>
+                        <td><input type="text" name="fax_F" style="width:60px;" required>&nbsp;-</td>
+                        <td><input type="text" name="fax_S" style="width:60px;" required></td>
                         <tr>
                             <td id="marry">결혼여부</td>
                             <td><input type="radio" name="marry" value="미혼" checked="checked"></td>
