@@ -56,10 +56,3 @@ a{text-decoration:none; border:1px solid #acacac; color: black;}
 .footer_p>h5{margin-top:15px;}
 .footer_p>h5:nth-child(3){margin-top:-2px;}
 .W{color:#ededed}
-
-#kcc_table{
-    width:1000px;margin: auto 0;border:1;
-}
-td{
-    width: 100px;
-}
