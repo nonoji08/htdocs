@@ -8,6 +8,42 @@ src:url(/css/font/NanumGothic.eot?#iefix) format('embedded-opentype'), /* IE6-IE
 	url(/css/font/NanumGothic.woff) format('woff'), /* Modern Browsers */
 	url(/css/font/NanumGothic.ttf)  format('truetype'); /* Safari, Android, iOS */
 }
+.btn_area {
+    padding-top: 20px;
+    border-top: 3px solid #ccc;
+    text-align: right;
+}
+.sp_coms {
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    height: 10px;
+    background: url(/img/sp_com_sub.png) no-repeat;
+    font-size: 0;
+    line-height: 999px;
+    vertical-align: top;
+}
+.btn_view {
+    width: 94px;
+    height: 34px;
+    background-position: 0 -171px;
+    font-size: 13px;
+    color: #333;
+    line-height: 34px;
+    text-align: center;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+user agent stylesheet
+a:-webkit-any-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: auto;
+}
+
 
 /* reset */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button{margin:0;padding:0}

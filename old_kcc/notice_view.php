@@ -175,7 +175,7 @@ $(function()
 				<div class="comm_wrap">
 					<h3 class="sp_subtit stit_notice">공지사항</h3>
 					<p class="stxt">금강컨트리클럽을 이용하시기 불편함 없도록 밝고 건강한 새로운 소식을 회원님께 알려드립니다.</p>
-                    <form method="get">
+                    <form method="post" action="notice_delete.php">
 					<table class="not_tb">
 					<caption><span class="blind">공지사항 안내</span></caption>
 					<colgroup>
@@ -186,31 +186,33 @@ $(function()
 					</colgroup>
 					<thead>
 					<tr>
-						<th scope="col"><span class="in">번호</span></th>
 						<th scope="col"><span class="in">제목</span></th>
-						<th scope="col"><span class="in">등록일</span></th>
 						<th scope="col"><span class="in">조회수</span></th>
 					</tr>
 					</thead>
 					<tbody>
-                        <?php
-                        include 'include.php';
-                $sql="select * from notice";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
-                foreach($stmt as $row){
-                    $idx=$row['idx'];
+                    <?php
+                    include 'include.php';
+                    $idx=$_REQUEST['idx'];
+                    $sql="select * from notice where idx=$idx";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    foreach($stmt as $row){
                     $title=$row['title'];
-                    $date=$row['date'];
+                    $content=$row['content'];
                     $hit=$row['hit'];
 
-                    echo "<tr><td>$idx</td><td><a href='notice_view.php?idx=$row[idx]'>$title</a></td><td>$date</td><td>$hit</td></tr>";
+                    echo "<tr><td>$title</td><td>$hit</td></tr>
+                    <tr><td colspan=2>$content</td></tr>";
                 }
                         ?>
 					</tbody>
 					</table>
+                    <div class="btn_area">
+                    <input type=submit class="sp_coms btn_view" value="삭제">
+					<a href="notice.php" class="sp_coms btn_view">목록보기</a>
+                    </div>
                     </form>
-					
 				</div>
 			</div>
 		</div>
