@@ -175,60 +175,31 @@ $(function()
 				<div class="comm_wrap">
 					<h3 class="sp_subtit stit_notice">공지사항</h3>
 					<p class="stxt">금강컨트리클럽을 이용하시기 불편함 없도록 밝고 건강한 새로운 소식을 회원님께 알려드립니다.</p>
-                    <form method="post">
-					<table class="not_tb">
-					<caption><span class="blind">공지사항 안내</span></caption>
-					<colgroup>
-					<col style="width:68px">
-					<col>
-					<col style="width:137px">
-					<col style="width:82px">
-					</colgroup>
-					<thead>
-					<tr>
-						<th scope="col"><span class="in">번호</span></th>
-						<th scope="col"><span class="in">제목</span></th>
-						<th scope="col"><span class="in">등록일</span></th>
-						<th scope="col"><span class="in">조회수</span></th>
-					</tr>
-					</thead>
-					<tbody>
-                        <?php
-                            include "include.php";
-                            $sql="select * from notice";
-                            $stmt=$pdo->prepare($sql);
-                            $stmt->execute();
-                            foreach($stmt as $row){
-                                $idx=$row['idx'];
-                                $title=$row['title'];
-                                $date=$row['date'];
-                                $hit=$row['hit'];
-                            
-                            echo "<tr>
-							<td>
-								<div class='in'>$idx</div>
-							</td>
-							<td class='con'>
-								<div class='in'><a href='view.php?idx=$idx'>$title</a></div>
-							</td>
-							<td>
-								<div class='in'>
-									<div class='in'>$date</div>
-								</div>
-							</td>
-							<td>
-								<div class='in'>
-									<div class='in'>$hit</div>
-								</div>
-							</td>
-                            </tr>";}
-                		  ?>
-					</tbody>
-					</table>
-                        <div class="btn_wrap">
-                        <p class="write"><a href="insert_form.php">글쓰기</a></p>
-					</div>
-                    </form>
+                    <?php
+                                        
+                                        include "include.php";
+                                        $sql="select * from notice";
+                                        $stmt=$pdo->prepare($sql);
+                                        $stmt->execute();
+                                        foreach($stmt as $row){
+                                            $idx=$row['idx'];
+                                            $content=$row['content'];
+                                            $date=$row['date'];
+                                            $hit=$row['hit'];
+                                        }
+                                        echo "
+                                        <tr class='view_tr'>
+                                            <td></td><td>조회수:$hit</td>
+                                        </tr>
+                                        <tr class='view_tr'>
+                                            <td></td><td>작성일:$date</td>
+                                        </tr>
+                                        <tr class='view_tr'><td>내용$content</td><td></td></tr>
+
+                                    </table>
+                                                <p><a href='/update.php'>수정</a></p>
+                                                   <p><a href='delete.php?idx=$idx'>삭제</a></p>  
+                                        <p><a href='sub1.php'>목록</a></p>"; ?>
 					
 				</div>
 			</div>
