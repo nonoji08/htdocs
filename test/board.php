@@ -131,44 +131,41 @@
 						<p class="join_txt">금강컨트리클럽을 이용하시기 불편함 없도록 밝고 건강한 새로운 소식을 회원님께 알려드립니다.</p>
 					</div>	
 					<div class="article_box">
-                                            <table class="not_view">
+                                            <table class="not_tb">
                                                 <caption> <span class="blind">공지사항 안내</span></caption>
+                                                <colgroup><col style="width:68px"><col><col style="width:137px"><col style="width:82px"></colgroup>
+                                                <thead>
+                                                    <tr> <th> 번호 </th> <th> 제목 </th> <th> 등록일 </th> <th> 조회수 </th>
+                                                </thead>
+                                                <tbody>
                                                     <?php 
                                                         include "dbCon.php";
-                                                        $idx = $_GET['idx'];
-                                                        $sql = "SELECT * FROM board WHERE idx=$idx";
+                                                        //$page = $_REQUEST['pg'];
+                                                        //$toPage = 10*$page;
+                                                        //$fromPage = $toPage-10*($page-1);  LIMIT $fromPage,$toPage
+                                                        $sql = "SELECT * FROM board order by idx DESC";
                                                         $stmt = $pdo->prepare($sql);
                                                         $stmt->execute();
-                                                        $row = $stmt->fetch();
-                                                        $subject = $row['subject'];
-                                                        $content = $row['content'];
-                                                        $date = $row['date'];
-                                                        $filename = $row['originalFilename'];
-                                                                                                                
-                                                        // 조회수 증가
-                                                        $hits = $row['hits'];
-                                                        $hitsup = $hits+1;
-                                                        $hitsup_sql = "update board set hits=$hitsup where idx=$idx";
-                                                        $stmt = $pdo->prepare($hitsup_sql);
-                                                        $stmt->execute();
-                                                        
-                                                        echo "<thead><tr> <th> $subject </th> <th class='hits'> <span class='hits'>조회수 $hitsup</class></th></thead>"
-                                                        . "<tbody><tr><td class='view_con' colspan=2>$content</td></tr>";
-                                                        if ($filename)  echo "<tr><td id='boardFile' colspan='2'> 첨부파일 : <a href='fileDown.php?idx=$idx'>$filename</a> </td> </tr>";
+                                                        foreach ($stmt as $row) {
+                                                            $idx = $row['idx'];
+                                                            $subject = $row['subject'];
+                                                            $date = $row['date'];
+                                                            $hits = $row['hits'];
+                                                            echo "<tr><td>$idx</td><td class='con'><div class='in'><a href='view.php?idx=$idx'>$subject</a></div></td><td>$date</td><td>$hits</td></tr>";
+                                                        }
                                                     ?>
                                                 </tbody>
                                             </table>
-                                            <div class='wrapBtnview'>
-                                                <?php
-                                                    echo"<a href='edit.php?idx=$idx' class='sp_coms btn_view'>수정하기</a>"
-                                                        .   "  <a href='delete.php?idx=$idx' class='sp_coms btn_view'>삭제하기</a>";
-                                                ?>
-                                                <a href="board.php" class="sp_coms btn_view">목록보기</a>
+                                            <div class="board_page">
+                                                
                                             </div>
-                                        </div>
-                                    </div>
-				</div>	
-		</div>	
+                                            <div class='wrapBtnwrite'>
+                                                <a href="write.php" class="sp_coms btn_write">글쓰기</a>
+                                            </div>
+                                        </div>	
+                                </div>
+                        </div>	
+                    </div>
 	</div>
 	<!-- //container -->
 	<hr>

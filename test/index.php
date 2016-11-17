@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -7,15 +7,19 @@
 <link rel="stylesheet" type="text/css" href="css/kcc_style.css" />
 <script type="text/javascript" src="js/jquery/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="js/main_common.js"></script>
+<script type="text/javascript" src="js/jquery/flexslider/jquery.flexslider-min.js"></script>
+<link rel="stylesheet" href="js/jquery/flexslider/flexslider.css" type="text/css" />
 <script type="text/javascript">
-	//jquery onload
-	$(function(){
-		//Html parsing 이 다 된 후 호출되는 영역.
-	  $(".lnb li a").mouseover(function(){
-	  	$(".lnb li a.selected").removeClass("selected");
-	  	$(this).addClass("selected");
+$(document).ready(function() {
+	$('.banner').flexslider({
+		animation: "slide",
+		controlNav: true,
+		directionNav: false,
+		slideshow: true,
+		slideshowSpeed: 3000,
+		animationLoop: true
 	  });
-	});
+});
 </script>
 </head>
 <body>
@@ -24,10 +28,11 @@
 <li><a href="#gnb" tabindex="0">주메뉴 바로가기</a></li>
 <li><a href="#content">본문 바로가기</a></li>
 </ul>
+
 <!-- //skip nav -->
-<div id="wrap" class="sub_bg">
+<div id="wrap" class="main">
 	<!-- header -->	
-	<div id="header">	
+    <div id="header">	
             <h1 class="logo">
                 <a href="index.php" class="sp_com kcc">
                     <strong class="blind">KCC 금강컨트리클럽</strong>
@@ -43,7 +48,7 @@
             </div>
             <div id="site_menu">
                     <h2>
-                        <a class="m_menu_ico"><span class="blind">사이트메뉴</span></a>
+                        <a class="m_menu_ico"><span  class="blind">사이트메뉴</span></a>
                     </h2>
                     <!--해당메뉴 li class에 selected 추가-->
                     <div class="menu_lst_wrap">
@@ -91,7 +96,7 @@
                                     <li class="menu5">
                                         <a href="#" class="sp_com site_menu5">COMMUNITY 커뮤니티</a>
                                         <ul class="site_sub_menu">
-                                        <li><a href="#" class="sp_com site_menu5_1">공지사항</a></li>
+                                        <li><a href="board.php" class="sp_com site_menu5_1">공지사항</a></li>
                                         <li><a href="#" class="sp_com site_menu5_2">자료실</a></li>
                                         <li><a href="#" class="sp_com site_menu5_3">Joinroom</a></li>
                                         </ul>
@@ -102,7 +107,7 @@
                         </div>
                     </div>
             </div>
-        </div>
+    </div>
 	<!-- //header -->
 	
 	<hr>
@@ -110,64 +115,106 @@
 	<!-- container -->
 	<div id="container">
 		<div id="content">
-				<div class="sub_con">
-				<div class="left_con">
-                                    <h2 class="nav_tit"><span class="sp_subtit com_tit">커뮤니티</span></h2>
-					<ul class="lnb">
-                                        <li><a href="#" class="selected_hard">공지사항<span class="sp_sub select_ico"></span></a></li>
-					<li><a href="#">자료실<span class="sp_sub select_ico"></span></a></li>
-					</ul> 
-				</div>		
-				<div class="right_con">	
-					<p class="pg_nav">	
-						<a href="#">홈</a>
-						<span>&gt;</span>
-						<a href="#">커뮤니티</a>						
-						<span>&gt;</span>
-						<strong>공지사항</strong>
+			<div class="sp_bg spot_wth">
+				<h2 class="blind">날씨온도 정보</h2>
+				<ol class="wth_list">
+				<li class="today">						
+					<strong class="w_tit">오늘</strong>
+					<strong class="w_tit2">02. 14 FRI</strong>
+					<img src="img/img_wth.png" width="90" height="70" alt="구름많음" class="w_img">
+					<div class="tmpr_info">
+						<span class="now_tmpr">23</span>
+						<span class="tmpr_ico">℃</span>
+					</div>
+					<p class="tmpr_info2">
+					<span>최고 25℃</span>
+					<span>최저 14℃</span>
+					<span>강수확률 0%</span>
 					</p>
-					<div class="join_wrap">	
-						<h2 class="sp_subtit stit_notice">커뮤니티</h2>
-						<p class="join_txt">금강컨트리클럽을 이용하시기 불편함 없도록 밝고 건강한 새로운 소식을 회원님께 알려드립니다.</p>
-					</div>	
-					<div class="article_box">
-                                            <table class="not_view">
-                                                <caption> <span class="blind">공지사항 안내</span></caption>
-                                                    <?php 
-                                                        include "dbCon.php";
-                                                        $idx = $_GET['idx'];
-                                                        $sql = "SELECT * FROM board WHERE idx=$idx";
-                                                        $stmt = $pdo->prepare($sql);
-                                                        $stmt->execute();
-                                                        $row = $stmt->fetch();
-                                                        $subject = $row['subject'];
-                                                        $content = $row['content'];
-                                                        $date = $row['date'];
-                                                        $filename = $row['originalFilename'];
-                                                                                                                
-                                                        // 조회수 증가
-                                                        $hits = $row['hits'];
-                                                        $hitsup = $hits+1;
-                                                        $hitsup_sql = "update board set hits=$hitsup where idx=$idx";
-                                                        $stmt = $pdo->prepare($hitsup_sql);
-                                                        $stmt->execute();
-                                                        
-                                                        echo "<thead><tr> <th> $subject </th> <th class='hits'> <span class='hits'>조회수 $hitsup</class></th></thead>"
-                                                        . "<tbody><tr><td class='view_con' colspan=2>$content</td></tr>";
-                                                        if ($filename)  echo "<tr><td id='boardFile' colspan='2'> 첨부파일 : <a href='fileDown.php?idx=$idx'>$filename</a> </td> </tr>";
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <div class='wrapBtnview'>
-                                                <?php
-                                                    echo"<a href='edit.php?idx=$idx' class='sp_coms btn_view'>수정하기</a>"
-                                                        .   "  <a href='delete.php?idx=$idx' class='sp_coms btn_view'>삭제하기</a>";
-                                                ?>
-                                                <a href="board.php" class="sp_coms btn_view">목록보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
+				</li>
+				<li class="tomorrow">
+					<strong class="w_tit">내일</strong>
+					<img src="img/img_wth2.png" width="60" height="45" alt="맑음" class="w_img">
+				</li>
+				<li class="after_tmr">
+					<strong class="w_tit">모레</strong>
+					<img src="img/img_wth3.png" width="60" height="45" alt="구름많음" class="w_img">
+				</li>
+				</ol>
+				<a href="#" class="week_wth">주간 날씨보기<span class="sp_main ico"></span></a>
+			</div>
+			<ul class="spot_link">
+			<li>
+				<a href="#" class="sp_main reserv">RESERVATION<span class="blind">온라인 예약하기</span></a>
+			</li>	
+			<li>
+				<a href="#" class="sp_main webcam">WEBCAM<span class="blind">현재 필드상태를 보여드립니다</span></a>
+			</li>
+			<li>
+				<a href="#" class="sp_main mobileapp">MOBILE APP<span class="blind">모바일에서도 금강CC를 만나세요</span></a>	
+			</li>	
+			</ul>	
+			<div class="notice_area">
+				<div class="sp_bg notice">
+					<h3 class="sp_main notice_txt">공지사항</h3>
+				</div>
+				<div class="sp_bg notice_list">
+					<table class="notice_list_in">
+					<colgroup>
+					<col width="163"><col>
+					</colgroup>
+					<tbody>
+                                            <?php 
+                                                include "dbCon.php";
+                                                $sql = "SELECT * FROM board order by idx DESC LIMIT 0,5";
+                                                $stmt = $pdo->prepare($sql);
+                                                $stmt->execute();
+                                                foreach ($stmt as $row) {
+                                                    $idx = $row['idx'];
+                                                    $subject = $row['subject'];
+                                                    $date = $row['date'];
+                                                    $rtn = str_replace("-", ".", substr($date, 2, 8));
+                                                    echo "<tr><td class='title'><a href='view.php?idx=$idx'>$subject</a></td><td class='reg_date'>$rtn</td></tr>";
+                                                }
+                                            ?>
+					</tbody>
+					</table>					
+					<div class="notice_pg">
+						<a href="#" class="sp_main btn_pre">이전 공지사항</a>
+						<a href="#" class="sp_main btn_next">다음 공지사항</a>
+						<a href="#" class="notice_more">+ 더보기</a>
+					</div>
+				</div>
+				<!-- http://flexslider.woothemes.com/ -->
+				<div class="banner">
+					<ul class="bnn_list slides">
+					<li>
+						<a href="#"><img src="img/main_banner2.gif" width="100%" alt="현대카드 M포인트 사용가능" class="bnn_img"/></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/main_banner3.jpg"  width="100%" alt="현대카드 M포인트 사용가능" class="bnn_img"/></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/main_banner2.gif"  width="100%" alt="현대카드 M포인트 사용가능" class="bnn_img"/></a>
+					</li>
+					</ul>
 				</div>	
+			</div>
+			<ul class="link_area">			
+			<li>
+				<a href="#" class="dirctns"><span class="sp_main dirctns_txt">찾아오는 길</span></a>
+			</li>
+			<li>
+				<a href="#" class="contactus"><span class="sp_main contactus_txt">연락하기</span></a>
+			</li>
+			<li>
+				<a href="#" class="clubhouse"><span class="sp_main clubhouse_txt">CLUB HOUSE</span></a>
+			</li>
+			<li>
+				<a href="#" class="courceinfo"><span class="sp_main courceinfo_txt">코스안내</span></a>
+			</li>
+			</ul>
+			<span class="sp_main bg_ico"></span>
 		</div>	
 	</div>
 	<!-- //container -->
@@ -176,7 +223,7 @@
 	<!-- footer -->
 	<div id="footer">		
 		<div class="f_inner">
-			<p class="policy_sub">
+			<p class="policy">
 				<a href="#">회칙 및 이용약관</a>
 				<a href="#">개인정보 취급방침</a>
 				<a href="#">인트라넷</a>
@@ -189,7 +236,9 @@
 				<p class="none_style">사업자등록번호: 126-81-07997</p>
 				<p>통신판매법 신고 : 2009-경기여주-0058</p>
 				<p>개인정보관리책임자 : 윤두한 031-880-6000</p>
-				<p><a href="#" class="licenseInfo sp_main">사업자 정보확인</a></p>	
+				<p>
+					<a href="#" class="licenseInfo sp_main"><span class="blind">사업자 정보확인</span></a>
+				</p>	
 			</div>
 			<address>Copyright (c) Kumkang leisure Ltd.  All rights reserved</address>
 		</div>	

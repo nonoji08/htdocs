@@ -130,42 +130,47 @@
 						<h2 class="sp_subtit stit_notice">커뮤니티</h2>
 						<p class="join_txt">금강컨트리클럽을 이용하시기 불편함 없도록 밝고 건강한 새로운 소식을 회원님께 알려드립니다.</p>
 					</div>	
-					<div class="article_box">
-                                            <table class="not_view">
-                                                <caption> <span class="blind">공지사항 안내</span></caption>
-                                                    <?php 
-                                                        include "dbCon.php";
-                                                        $idx = $_GET['idx'];
-                                                        $sql = "SELECT * FROM board WHERE idx=$idx";
-                                                        $stmt = $pdo->prepare($sql);
-                                                        $stmt->execute();
-                                                        $row = $stmt->fetch();
-                                                        $subject = $row['subject'];
-                                                        $content = $row['content'];
-                                                        $date = $row['date'];
-                                                        $filename = $row['originalFilename'];
-                                                                                                                
-                                                        // 조회수 증가
-                                                        $hits = $row['hits'];
-                                                        $hitsup = $hits+1;
-                                                        $hitsup_sql = "update board set hits=$hitsup where idx=$idx";
-                                                        $stmt = $pdo->prepare($hitsup_sql);
-                                                        $stmt->execute();
-                                                        
-                                                        echo "<thead><tr> <th> $subject </th> <th class='hits'> <span class='hits'>조회수 $hitsup</class></th></thead>"
-                                                        . "<tbody><tr><td class='view_con' colspan=2>$content</td></tr>";
-                                                        if ($filename)  echo "<tr><td id='boardFile' colspan='2'> 첨부파일 : <a href='fileDown.php?idx=$idx'>$filename</a> </td> </tr>";
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <div class='wrapBtnview'>
-                                                <?php
-                                                    echo"<a href='edit.php?idx=$idx' class='sp_coms btn_view'>수정하기</a>"
-                                                        .   "  <a href='delete.php?idx=$idx' class='sp_coms btn_view'>삭제하기</a>";
-                                                ?>
-                                                <a href="board.php" class="sp_coms btn_view">목록보기</a>
+                                        <form id='writeBoard' action='update_board.php' method='post'>
+                                            <?php
+                                                include 'dbCon.php';
+                                                $idx=$_REQUEST['idx'];
+                                                $sql = "SELECT * FROM board WHERE idx=$idx";
+                                                $stmt = $pdo->prepare($sql);
+                                                $stmt->execute();
+                                                $row=$stmt->fetch();
+                                                    $subject = $row['subject'];
+                                                    $content = $row['content'];
+                                                    $writer = $row['writer'];
+                                                    $file = $row['originalFilename'];
+                                                    echo "<script>$(document).ready(function() {"
+                                                    . "$('#subject').val('$subject'); $('#writer').val('$writer'); $('#idx').val('$idx');"
+                                                            . "});</script>";
+                                            ?>
+                                            <div class="article_box">
+                                                <table class="not_wrt">
+                                                    <caption> <span class="blind">공지사항 작성</span></caption>
+                                                    <thead> <tr> <th class='write_caption'> 제목 </th> <td class='tb_biginp'> <input type='text' class="inptxt wsubject" id="subject" name='subject'/> </td> <th class='write_caption'> 작성자 </th>
+                                                            <td class='tb_smallinp'> <input type='text' class="inptxt w70" id="writer" readonly name='writer'/> </td> </tr></thead>
+                                                    <tbody>
+                                                        <tr> <th class='write_caption'> 내용 </th>
+                                                            <td colspan='3'>
+                                                                <textarea class='write_content' id="txtContent" name='content'><?=strip_tags($row['content'])?></textarea>
+                                                            </td>
+                                                        </tr>
+                                                        <tr> <th class='write_caption'> 첨부파일 </th>
+                                                            <td id='boardFile' colspan='3'>
+                                                                <?=$file?> <span class='write_alert'>파일은 수정이나 삭제가 불가능합니다.</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class='wrapBtnview'>
+                                                    <input type="hidden" name="idx" id="idx">
+                                                    <a href="#" onclick="$('#writeBoard').submit()" class="sp_coms btn_view">등록</a>
+                                                    <a href="board.php" class="sp_coms btn_view">취소</a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
 				</div>	
 		</div>	

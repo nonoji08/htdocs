@@ -1,0 +1,13 @@
+<div class="sel_box year">
+<p>
+						                        <span class="sel_op">1901</span>
+						                        <a href="#" class="btn_sel"><span class="sp_ly ly_off"></span></a>
+                                            </p>
+                                            <ul>
+                                                <?php 
+                                                    for ($i=1901; $i<=2016; $i++) {
+                                                        echo ("<li data-value='$i'>$i</li>");
+                                                    }
+                                                ?>
+                                            </ul>
+</div>
