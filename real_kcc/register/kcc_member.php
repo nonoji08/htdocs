@@ -14,12 +14,11 @@ if(!$(':input:radio[name=radiodel]:checked').val()) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
 
 <body>
-    <form method="post">
-        <table id='kcc_table'>
+        <table id='kcc_table' width="1000px">
             <tr><td>idx</td><td>id</td><td>name</td><td>phone</td><td>home</td></tr>
             <?php
 
-                include 'include.php';
+                include '../include.php';
                 $sql="select * from kcc_member";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
@@ -34,7 +33,6 @@ if(!$(':input:radio[name=radiodel]:checked').val()) {
                 }
             ?>
         </table>
-    </form>
-	<a href="../index.php">메인으로</a>
+	<div><a href="../index.php">메인으로</a></div>
 </body>
 </html>
